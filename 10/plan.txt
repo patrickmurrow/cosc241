@@ -1,0 +1,12 @@
+search method
+----------------
+if the mid is greater than the left point, use the mid as the new left point
+
+if the mid is less than, use the right point as the new mid
+
+repeat recursively until there are two ints and return the smallest of the two
+
+if the smallest value is already in the middle return mid
+
+if the smallest value's already at the start eg. array[0]<array[array.length-1]
+ return 0

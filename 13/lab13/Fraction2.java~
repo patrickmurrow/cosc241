@@ -1,0 +1,73 @@
+package lab13;
+
+public class Fraction2 implements Fraction {
+
+   private double dec;
+   private int numer;
+   private int denom;
+   private double answer;
+   
+   public Fraction(int num, int den){
+      numer = num;
+      denom = den;
+      dec = (double) num / (double) den;
+   }
+
+   public Fraction(double frac){
+      dec = frac;
+   }
+
+   public double getDecimal(){
+      dec = (double)numer/denom;
+      return dec;
+   }      
+   
+   public Fraction add(Fraction x){
+      double answer;
+      answer = x.getDecimal() + this.getDecimal();
+      return new Fraction(answer);
+      return convert(answer);
+   }
+
+   public Fraction subtract(Fraction x){
+      double answer;
+      answer = this.getDecimal() - x.getDecimal();
+      return convert(answer);
+   }
+
+   public Fraction multiply(Fraction x){
+      double answer;
+      answer = x.getDecimal() * this.getDecimal();
+      return convert(answer);
+   }
+
+   public Fraction divide(Fraction x){
+      double answer;
+      answer = this.getDecimal() / x.getDecimal();
+      return convert(answer);
+   }
+
+   public int compareTo(Fraction x){
+      if (this.getDecimal()<x.getDecimal()){
+         return -1;
+      }
+      else if (this.getDecimal()>x.getDecimal()){
+         return 1;
+      }
+      else{
+         return 0;
+      }
+   }
+
+   public String toString(){
+      final double PRECISION = 0.0001;
+      double num = 0;
+      int denom = 0;
+      do {
+         denom++;
+         num = denom * dec;
+      } while (Math.abs(num - Math.round(num)) > PRECISION);
+      return ""+(int) Math.round(num)+ "/" +denom;
+         }
+}
+      

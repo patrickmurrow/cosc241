@@ -1,0 +1,22 @@
+Lab 04 Plan
+
+-need to increment counter in add method
+-make counter 0 after clearing numbers
+-change doubles to ints
+-sum from int to double
+
+InputNumber Plan
+
+-a calls add method
+-c calls calcAverage method
+-r calls clear method
+-p prints out array
+
+-a needs hasNextInt to convert string to int
+
+-print out calcAverage
+System.out.println( nInput.calcAverage());
+
+if empty dont 
+
+

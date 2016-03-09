@@ -1,0 +1,19 @@
+package lab08practice;
+
+import java.util.Scanner;
+
+public class TestApp{
+
+   public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+      NumberList nInput = new NumberList(10);
+      while (input.hasNextInt()) {
+         int num = input.nextInt();
+         nInput.add(num);
+         }
+      System.out.println(nInput.toString());
+      if (!nInput.isEmpty()){
+         System.out.println("The average is " + nInput.calcAverage());
+      }
+   }
+}

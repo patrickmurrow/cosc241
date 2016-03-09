@@ -1,0 +1,9 @@
+package lab17;
+
+public class EmptyQueueException(){
+   private static final long serialVersionUID = 1;
+
+   public EmptyQueueException(){
+      super();
+   }
+}

@@ -1,0 +1,38 @@
+Plan Lab 09
+
+PhoneListApp
+-----------------------------
+switch with a,g,r and p
+
+a - if the input has both a name and a number add it to the map
+g - print number if the name given is in the map
+r - call remove method
+p - call toString method
+
+
+PhoneList
+------------------------------
+
+getNumbers
+----------
+uses HashMap get method
+
+
+contains
+---------
+uses HashMap containsKey method
+
+
+addEntry
+--------
+uses HashMap put method
+
+
+remove
+------
+uses HashMap remove method
+
+
+toString
+--------
+uses HashMap toString method

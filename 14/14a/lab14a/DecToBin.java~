@@ -1,0 +1,48 @@
+package lab14a;
+
+import java.util.*;
+
+public class DecToBin{
+
+   public static Integer [] numArray;
+   public static Stack<String> stack = new Stack<String>();
+
+   /**
+    * Reads in a scanner and and places the ints into an array, calls
+    * firstMethod with that array.
+    *
+    */
+   public static void main(String[] args){
+      Scanner input = new Scanner(System.in);
+      Integer[] numArray = getNumbers(input);    
+   }
+
+   /**
+    *  Reads some integers from a Scanner (one per line) and returns them in an
+    *  array.  Input is read until the first non-integer or EOF is reached.
+    *
+    * @param input the place where we read our input from.
+    * @return an array containing the integers read.
+    */ 
+   public static Integer[] getNumbers(Scanner input) {
+      ArrayList<Integer> numbers = new ArrayList<Integer>();
+      String line = "";
+      while (input.hasNextInt()) {
+         int num = input.nextInt();
+         numbers.add(num);
+      }
+      return numbers.toArray(new Integer[0]);
+   }
+
+   public static void convert(Integer[] array){
+      for (int i = 0; i<array.length; i++){
+         int x = array[i];
+         while(x>0){
+            stack.push(x%2);
+            x = x/2;
+         }
+         System.out.println(stack.pop());
+      }
+   }
+
+   

@@ -1,0 +1,58 @@
+package lab11;
+
+import java.util.*;
+
+public class ShellSort extends Sorter{
+
+   public static Integer [] numArray;
+   
+   public ShellSort(Integer[] nums){
+      super(nums);
+   }
+
+   public void sortNums() {
+      int tmp;
+      h = 1;
+      comparisons = 0;
+      while(h<nums.length){
+         h = 3*h+1;
+      }
+      while(h>1){
+         h = h/3;
+         for(i = h; i<nums.length; i++){
+            tmp = nums[i];
+            j = i - h;
+            while(j >= 0 && nums[j]>tmp && ++comparisons>0){
+               nums[j+h] = nums[j];
+               j = j-h;
+            }
+            nums[j+h] = tmp;
+            update();
+         }
+      }
+      update();
+      for (int pos = 0; pos<nums.length; pos++){
+         System.out.println(nums[pos]);
+      }
+      System.err.println(""+comparisons);
+       
+   }
+
+   public static void main(String[] args){
+      Scanner input = new Scanner(System.in);
+      Integer[] numArray = readNums(input);
+      ShellSort list = new ShellSort(numArray);
+      list.sortNums();
+   }
+
+   public static Integer[] readNums(Scanner input){
+      ArrayList<Integer> numbers = new ArrayList<Integer>();
+      String line = "";
+      while (input.hasNextInt()) {
+         int num = input.nextInt();
+         numbers.add(num);
+      }
+      return numbers.toArray(new Integer[0]);
+   }
+}
+                                    

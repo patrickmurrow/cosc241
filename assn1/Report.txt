@@ -1,0 +1,18 @@
+Report
+
+Question a)
+
+All the statements before the while loop are O(1) and we can disregard them,
+the while loop has complexity of O(n) because nums will always be decremented
+by one and unless the cup is empty the while loop will always be entered.
+The numbers of cups left are dependent on whether the while loop has emptied
+the cup, so if the amount of stones in the cup was smaller than the size of the
+list of cups. To remove a cup the complexity is O(1), So the complexity of
+emptying a cup will be O(n + c)
+
+Question b)
+
+Complexity is O(N^2 + (n + c)*c), c is multiplied by the amount of times a empty
+needs to be called and there is a nested for loop so N has to be squared,
+although there are 3 for loops but isn't cubed because of the if statements. So
+complexity will be O(N^2 + nc + c^2).

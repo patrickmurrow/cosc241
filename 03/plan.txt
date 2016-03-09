@@ -1,0 +1,34 @@
+PLAN
+/////////////////////////////////////////////////////////////////////////////
+
+   while (input.hasNextInt()) {
+   int num = input.nextInt();
+   numbers.add(num); // example of autoboxing
+   }
+
+   using hasNextInt() and .nextInt to read the next integer instead of converting the line to an int and then doing the calculations
+
+   don't need try-catch
+
+//////////////////////////////////////////////////////////////////////////////
+
+getMax()
+
+   making first int in the array the max and seeing if the next is higher, if is then that int is the new max and so on. max is returned
+
+   will need a for loop
+   will need nums.length to stop searching the array
+   will need to increment the index which starts at 0
+   needs an if statement to see if the indexed int is max
+
+/////////////////////////////////////////////////////////////////////////////
+   
+getMin()
+
+   making first int in the array the min and seeing if the next is lower, if it is then that int is the new min. min is returned
+
+   will need a for loop
+   will need .length to stop searching the array
+   will need to increment the index which starts at 0
+   needs an if statement to see if the indexed int is max
+   

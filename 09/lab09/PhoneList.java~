@@ -1,0 +1,30 @@
+package lab09;
+
+import java.util.Hashmap;
+
+public class PhoneList {
+
+   public PhoneList(){
+      Map<String,String> plist = new HashMap<String,String>();
+   }
+   public String getNumber(String gName) {
+   }
+
+   public boolean contains(String cName) {
+   }
+
+   public void addEntry(String name, String number) {
+      plist.put(name, number);
+   }
+ 
+   public int size(){
+   }
+
+   public void remove(String rName){
+   }                                  
+
+   public String toString() {
+      return plist.toString();
+   }
+
+}

@@ -1,0 +1,103 @@
+Fraction
+--------------------------------------------------
+
+Multiply (*)
+Subtract (-)
+Add (+)
+Divide (/)
+Greater Than (>)
+Less Than (<)
+Equals (=)
+
+--------------------------------------------------
+
+Fraction()
+getNumerator()
+getDenominator()
+getDecimal()
+lowestCommonDenominator()
+add()
+multiply()
+divide()
+subtract()
+toString()
+simplify()
+compareTo()
+FindCD()
+
+---------------------------------------------------
+
+Multiply
+---------
+numerator * numerator = new numerator
+denom * denom = new denom
+return new fraction
+
+
+Lowest Common Denominator
+-------------------------
+denom*denom = new denom
+denomA * numeratorB = new numeratorB
+denomB * numeratorA = new numeratorA
+return new fraction
+
+
+Add
+----
+call lowest common denominator on each fraction
+that denom = new denom
+numA + numB = new num
+return new fraction
+
+
+Subtract
+--------
+call lowest common denominator on each fraction
+denom = new denom
+numA - numB = new num
+return new fraction
+
+
+Divide
+------
+flip numB with denomB
+call multiply
+return new fraction
+
+
+Compare to
+------
+if numA and numB are equal
+and denomA and denomB are equal after simplification
+return true
+
+
+Find Common Divisor
+-------------------
+two values
+if A%B == 0
+divisor = A/B
+<< OR  B%A and B/A if B>A >>
+return divisor
+
+
+Simplify
+--------
+declare a variable as common divisor = call findCD
+divide num and denom by common divisor
+
+---------------------------------------------------
+Statements
+----------
+Fraction A = new Fraction(1,2).multiply(Fraction(2,3)).add(Fraction(5,7));
+Fraction B = new Fraction(11,9).divide(Fraction(4,3)).subtract(Fraction(17,21));
+A.compareTo(B);
+
+---------------------------------------------------
+Representation 1: double - represented as a decimal
+Representation 2: two ints - numerator int and denominator int
+
+
+
+
+

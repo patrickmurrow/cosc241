@@ -1,0 +1,32 @@
+package lab17;
+
+import java.util.*;
+
+public class TwoStackQueue<E> implements Queue<E>{
+   private Stack<E> left = new Stack<E>();
+   private Stack<E> right = new Stack<E>();
+
+   public int size(){
+      return left.size()+right.size();
+   }
+
+   public boolean isEmpty(){
+      return left.isEmpty()&&right.isEmpty();
+   }
+
+   public void clear(){
+      right.clear();
+      left.clear();
+   }
+
+   public void transfer(){
+      if (isEmpty()){
+         throw new EmptyQueueException();
+      }
+      if (right.isEmpty()){
+         while (!left.isEmpty()){
+            right.push(left.pop());
+         }
+      }
+   }
+}

@@ -1,0 +1,150 @@
+/* File: EmptyExceptionQueue.java */
+package lab14b;
+
+public class EmptyQueueException extends RuntimeException {
+
+       private static final long serialVersionUID = 1;
+
+       public EmptyQueueException() {
+           super();
+       }
+}
+
+
+/* File: Queue.java */
+package lab14b;
+
+public interface Queue<E> {
+
+       public boolean isEmpty();
+
+       public int size();
+
+       public E getFirst();
+
+       public void clear();
+
+       public void addLast(E elem);
+
+       public E removeFirst();
+
+}
+
+
+/* File: TwoStackQueue.java */
+package lab14b;
+
+import java.util.*;
+
+public class TwoStackQueue<E> implements Queue<E>{
+
+       public Stack<E> left = new Stack<E>();
+       public Stack<E> right = new Stack<E>();
+
+
+       public boolean isEmpty(){
+              return left.empty() && right.empty();
+       }
+
+
+       public int size(){
+              return left.size();
+       }
+
+
+       public E getFirst(){
+              if (isEmpty()){
+                 throw new EmptyQueueException();
+              }
+              else if(!(right.empty())){
+                  return right.peek();
+              }
+              else{
+                  while(!left.empty()){
+                     right.push(left.pop());
+                  }
+                  return right.peek();
+              }
+}
+
+        public void clear(){
+             while(!right.empty()){
+                right.pop();
+             }
+             while(!left.empty()){
+                left.pop();
+             }
+}
+
+
+        public void addLast(E elem){
+            left.push(elem);
+        }
+
+
+        public E removeFirst() throws EmptyQueueException{
+               if (isEmpty()){
+                        throw new EmptyQueueException();
+               }
+               else if(!(right.empty())){
+                    return right.pop();
+               }
+               else{
+                  while(!(left.empty())){
+                        right.push(left.pop());
+                  }
+                  return right.pop();
+             }
+}
+
+        public String toString() {
+            return left.toString() + right.toString();
+        }
+
+}
+
+
+/* File: QueueApp.java */
+package lab14b;
+
+import java.util.*;
+
+public class QueueApp {
+
+       public static void main(String args[]) {
+          Queue<String> queue = new TwoStackQueue<String>();
+          Scanner input = new Scanner(System.in);
+          while (input.hasNextLine()) {
+             handleLine(new Scanner(input.nextLine()), queue);
+          }
+       }
+
+       public static void handleLine(Scanner scanline, Queue<String> queue) {
+          if (scanline.hasNext("[argp]")) {
+            char command = scanline.next().charAt(0);
+            switch (command) {
+              case 'a':
+                while (scanline.hasNext()) {
+                  queue.addLast(scanline.next());
+                }
+                break;
+              case 'r':
+                if (!queue.isEmpty()) {
+                   System.out.println(queue.removeFirst());
+                }
+                break;
+              case 'g':
+                if (!queue.isEmpty()) {
+                   System.out.println(queue.getFirst());
+                }
+                break;
+              case 'p':
+                 System.out.println(queue);
+                 break;
+            }
+         }
+       }
+
+}
+
+

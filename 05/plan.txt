@@ -1,0 +1,12 @@
+Lab 05 Plan
+
+needs scanner as input for half method
+
+half method
+
+- if the string can be halved(length is larger than 1), half it and store the
+  end half in a new string, print the other half
+
+- recall half method with the string that was stored as half method  parameter
+
+- if the String can't be halved (1 character), print it

@@ -1,0 +1,52 @@
+/* File: NumberApp.java - February 2013 */
+package lab03;
+
+import java.util.*;
+
+/**
+ * This class is used to read in some numbers from standard input, put them
+ * into an array to be passed to another class, and then use the methods of
+ * that other class to perform operations on the numbers.
+ *
+ * @author Iain Hewson
+ */
+public class NumberApp {
+
+   /**
+    *  Prints out some integers (read from stdin) and their average.
+    *
+    * @param args Command line arguments are not used.
+    */
+   public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+      Integer[] numArray = getNumbers(input);
+      if (numArray.length > 0) {
+         NumberUtils nums = new NumberUtils(numArray);
+         System.out.println("Numbers input: " + nums);
+         System.out.printf("The average is %.1f\n", nums.getAverage());
+         System.out.println("The maximum is " + nums.getMax());
+         System.out.println("The minimum is " + nums.getMin());
+      } else {
+         System.err.println("No numbers were input");
+        
+      }
+   }
+
+   /**
+    *  Reads some integers from a Scanner (one per line) and returns them in an
+    *  array.  Input is read until the first non-integer or EOF is reached.
+    *
+    * @param input the place where we read our input from.
+    * @return an array containing the integers read.
+    */
+   private static Integer[] getNumbers(Scanner input) {
+      ArrayList<Integer> numbers = new ArrayList<Integer>();
+      String line = "";
+         while (input.hasNextInt()) {
+            int num = input.nextInt();
+            numbers.add(num); // example of autoboxing
+         }
+      return numbers.toArray(new Integer[0]);
+   }
+
+}

@@ -1,0 +1,32 @@
+package lab13;
+
+public interface Fraction{
+
+   public Fraction(int num, int den);
+
+   public Fraction(double frac);
+   
+   public Fraction add(Fraction f);
+
+   public Fraction multiply(Fraction f);
+
+   public Fraction divide(Fraction f);
+
+   public Fraction subtract(Fraction f);
+
+   public Fraction equals(Fraction f);
+
+   public Fraction simplify(Fraction f);
+
+   public int getDenom();
+
+   public int getNum();
+
+   public Fraction findGCD(Fraction f);
+
+   public Fraction compareTo(Fraction f);
+
+   public String toString();
+
+   public double getDecimal();
+}

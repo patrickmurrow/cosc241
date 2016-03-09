@@ -1,0 +1,48 @@
+/* File: Palindrome.java - March 2014 */
+package lab07;
+
+import java.util.*;
+
+public class Palindrome{
+
+   private static String newString = "default";
+   private static boolean result;
+   private static String line = "";
+   
+   public static void main(String[] args){
+      Scanner input = new Scanner(System.in);
+      while(input.hasNextLine()){
+         line = input.nextLine();
+      
+         System.out.println(isPalindrome(normalise(line)));
+      }
+ 
+   }
+
+     public static boolean isPalindrome(String sString){
+        if (sString.length() <= 1){
+           return true;
+        }
+        else  if (sString.charAt(0)==sString.charAt(sString.length()-1) &&
+            sString.length() > 1){
+           newString = sString.substring(1, sString.length()-1);
+           return isPalindrome(newString);
+        }
+        return false;
+                      
+     }
+
+   public static String normalise(String inputLine){
+      String newString = "";
+      for (int i = 0; i<inputLine.length(); i++){
+         if (Character.isLetter(inputLine.charAt(i))){
+            String s = inputLine.charAt(i) + "";
+            newString += ""+inputLine.charAt(i);
+            }
+      
+       }
+      return newString.toLowerCase();
+      
+      
+   }
+}

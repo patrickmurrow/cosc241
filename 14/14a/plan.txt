@@ -1,0 +1,5 @@
+convert method -Find the remainder of the number when divided by 2, then
+ uses the result as the next number. The remainder is added on to the stack
+ and printed when all binary numbers have been found for the decimal
+
+call convert in getNumbers method so each number is converted

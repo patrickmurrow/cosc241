@@ -1,0 +1,27 @@
+TwoStackQueue
+
+create Stack left and right
+
+isEmpty
+-calls .empty() on right and left
+
+size()
+-calls left.size()
+
+getFirst()
+-throw an exception if both stacks are empty
+-if right isn't empty peek() on right
+-if right is empty and left has elements, put all of the left elements into the
+  right and peek() on right
+
+
+clear()
+-pop() all elements in both stacks as long as they still have elements in them
+
+
+removeFirst()
+-same as getFirst() but pop() instead of peek()
+
+
+toString()
+-uses the default toString for a stack for right and left

@@ -1,0 +1,259 @@
+package lab19;
+
+/**
+ *  The objects of this class are Binary Search Trees but they are represented
+ *  without a header node. In particular we have to represent an empty list as
+ *  one where the left and right pointers are null (and that is not the same
+ *  as their being empty!).
+ *
+ * @author Mike Atkinson and Iain Hewson
+ */
+public class BST<E extends Comparable<E>> {
+
+   /**  The root element of this BST. */
+   private E element;
+
+   /**  The left and right subtrees of this BST. */
+   private BST<E> left, right;
+
+   /**  Creates an empty BST. */
+   public BST() {
+      left = right = null;
+   }
+
+   /**
+    *  Creates a one node BST with element at the root.
+    *
+    * @param  element  the element to place at the root.
+    */
+   public BST(E element) {
+      this.element = element;
+      this.left = new BST<E>();
+      this.right = new BST<E>();
+   }
+
+   /**
+    *  Changes datafields so that this BST becomes that BST.
+    *
+    * @param  that  the BST to make this BST the same as.
+    */
+   private void becomes(BST<E> that) {
+      this.left = that.left;
+      this.right = that.right;
+      this.element = that.element;
+   }
+
+   /**
+    *  Returns true if this BST is empty, otherwise false.
+    *
+    * @return    true if empty, otherwise false.
+    */
+   public boolean isEmpty() {
+      return left == null && right == null;
+   }
+
+   /**
+    *  Decides whether target is present in this BST.
+    *
+    * @param  target  the element being searched for.
+    * @return         true if target is present, false if target not present.
+    */
+   public boolean isPresent(E target) {
+      if (isEmpty()) {
+         return false;
+      }
+      int direction = target.compareTo(element);
+      if (direction == 0) {
+         return true;
+      }
+      if (direction < 0) {
+         return left.isPresent(target);
+      }
+      return right.isPresent(target);
+   }
+
+   /**
+    *  Insert a new element in this BST.
+    *
+    * @param  element  the element to be inserted.
+    */
+   public void insert(E element) {
+      if (isEmpty()) {
+         this.becomes(new BST<E>(element));
+      } else {
+         int direction = element.compareTo(this.element);
+         if (direction == 0)         //it is already in the tree
+            return;
+         if (direction > 0)          //go right
+            right.insert(element);
+         else                        //go left
+            left.insert(element);
+      }
+   }
+
+   /**
+    *  Deletes target from this BST.
+    *
+    * @param  target  the element being deleted.
+    */
+   public void delete(E target) {
+      // implement this method for lab 19
+   }
+
+   /**
+    *  Deletes the smallest element from this BST. It is only used when this
+    *  BST is known to be non-empty.
+    *
+    * @return    the deleted element.
+    */
+   private E deleteMin() {
+      // the next line is just to make the code compile
+      return null;
+      // implement this method for lab 19
+   }
+
+   /**  Deletes the root of this BST. */
+   private void deleteRoot() {
+      // implement this method for lab 19
+   }
+
+   /**
+    *  Returns a string representation of the BST.  The representation
+    *  consists of in-order, pre-order and post-order lists of each
+    *  element in this BST on separate lines.
+    *
+    * @return  a string representation of this BST.
+    */
+   public String toString() {
+      return inOrder() + "\n" + preOrder() + "\n" + postOrder();
+   }
+
+    /**
+    *  Returns an in-order concatenation of the elements in this BST,
+    *  surrounded by square brackets.
+    *
+    * @return an inorder concatenation of the elements in this BST.
+    */
+   public String inOrder() {
+      return "[" + (isEmpty() ? "" : inOrderAux()) + "]";
+   }
+
+   /**
+    *  Performs a recursive in-order traversal of this BST
+    *  concatenating each element with a comma and a space in between.
+    *
+    * @return an in-order concatenation of the elements in this BST.
+    */
+   private String inOrderAux() {
+      String result = "";
+      if (!left.isEmpty()) {
+         result += left.inOrderAux() + ", ";
+      }
+      result += element.toString();
+      if (!right.isEmpty()) {
+         result += ", " + right.inOrderAux();
+      }
+      return result;
+   }
+
+   /**
+    *  Returns a pre-order concatenation of the elements in this BST,
+    *  surrounded by square brackets.
+    *
+    * @return a pre-order concatenation of the elements in this BST.
+    */
+   public String preOrder() {
+      String result = "[";
+      if (!isEmpty()) {
+         result += preOrderAux();
+      }
+      return result + "]";
+   }
+
+   /**
+    *  Performs a recursive pre-order traversal of this BST
+    *  concatenating each element with a comma and a space in between.
+    *
+    * @return a pre-order concatenation of the elements in this BST.
+    */
+   private String preOrderAux() {
+      String result = element.toString();
+      if (!left.isEmpty()) {
+         result += ", " + left.preOrderAux();
+      }
+      if (!right.isEmpty()) {
+         result += ", " + right.preOrderAux();
+      }
+      return result;
+   }
+
+   /**
+    *  Returns a post-order concatenation of the elements in this BST,
+    *  surrounded by square brackets.
+    *
+    * @return a post-order concatenation of the elements in this BST.
+    */
+   public String postOrder() {
+      String result = "[";
+      if (!isEmpty()) {
+         result += postOrderAux();
+      }
+      return result + "]";
+   }
+
+   /**
+    *  Performs a recursive post-order traversal of this BST
+    *  concatenating each element with a comma and a space in between.
+    *
+    * @return a post-order concatenation of the elements in this BST.
+    */
+   private String postOrderAux() {
+      String result = "";
+      if (!left.isEmpty()) {
+         result += left.postOrderAux() + ", ";
+      }
+      if (!right.isEmpty()) {
+         result += right.postOrderAux() + ", ";
+      }
+      return result + element;
+   }
+
+   /**
+    * Returns a String representation of this BST as a tree on its side with
+    * the root at the left. 
+    *
+    * @return    An indented String representation of this BST.
+    */
+   public String toPrettyString() {
+      return toPrettyString("");
+   }
+
+   /**
+    *  A recursive method which returns a String representation of this BST as
+    *  a tree on its side with the root at the left.
+    *
+    * @param  spaces  A String of spaces used to create the appropriate indent.
+    * @return         An indented String representation of this BST.
+    */
+   private String toPrettyString(String spaces) {
+      if (isEmpty()) {
+         return "";
+      } else {
+         return right.toPrettyString(spaces + "     ") +
+            (right.isEmpty() ? "" : spaces + "  /\n") +
+            spaces + element + "\n" +
+            (left.isEmpty() ? "" : spaces + "  \\\n") +
+            left.toPrettyString(spaces + "     ");
+      }
+      // Note: the format for a conditional expression in Java is:
+      //    i = (condition) ? expressionOne : expressionTwo;
+      // This is the same as:
+      //    if (condition) {
+      //       i = expressionOne;
+      //    } else {
+      //       i = conditionTwo;
+      //    }
+   }
+
+}
+

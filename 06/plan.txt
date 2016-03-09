@@ -1,0 +1,10 @@
+Plan - Lab 06
+
+Method
+-----------------------------------------------------------------------------
+
+Compares the numbers in the array and assigns the largest number first
+ if the next number is larger, max is reassigned and the second biggest -->
+ int max2 is assigned. Then max2 also compares if the next int is
+ smaller than max, if smaller than max but greater than max2, max2 is
+ reassigned.

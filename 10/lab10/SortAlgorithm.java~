@@ -1,0 +1,47 @@
+package lab10;
+
+import java.util.*;
+
+public class SortAlgorithm{
+
+   public static Integer [] numArray;
+   
+   public static void main(String[] args){
+      Scanner input = new Scanner(System.in);
+      Integer[] numArray = getNumbers(input);
+      System.out.println(sort(numArray));
+   }
+
+   public static Integer[] getNumbers(Scanner input) {
+      ArrayList<Integer> numbers = new ArrayList<Integer>();
+      String line = "";
+      while (input.hasNextInt()) {
+         int num = input.nextInt();
+         numbers.add(num);
+      }
+      return numbers.toArray(new Integer[0]);
+   }
+
+   public int sort(Integer[] array){
+      int mid = (array.length)/2;
+      Integer [] newArray = new Integer[array.length/2];
+      if (int[mid] > int[0]){
+         for (int i = 0; i<array.length; i++){
+            for (int a = mid; a<newArray.length; a++){
+               newArray[i] = array[a];
+            }
+         }
+      }
+      sort(newArray);
+      return mid;
+   }
+   }
+
+}
+            
+         
+      
+      
+         
+
+      

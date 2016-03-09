@@ -1,0 +1,11 @@
+Alice.txt  another_directory  Daniel.jpg  dirl  France.jpg  greeting.txt
+lfile.txt  another_file.txt  long-list-files.txt
+/home/cshome/u/username - absolute
+241/bin - relative
+/bin/ls - absolute
+bin/sort - relative
+/usr/bin/wc - absolute
+home/cshome/u/username - relative
+../cshome/u/username - relative
+~/newdir - relative
+/bin/sort - absolute

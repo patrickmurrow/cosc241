@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<!-- This is an ant build file for compiling projects in 241.  The only two
+     things you will need to change are the package and main properties.
+
+     Available targets:
+
+     clean  - Delete all generated files
+     docs   - Generate and view Javadoc documentation
+     jar    - Compile all source files and create a runnable jar file (default)
+     junit  - Run individual unit tests with JUnit's gui test runner
+     submit - Submit your project (use only for assignments)
+     test   - Run locally defined tests from inputfiles/outputfiles directories
+
+     For demonstrators:
+     mark   - Run local, global, and unit tests
+  -->
+
+<project name="Cosc241" default="jar" basedir=".">
+
+  <property file="project.props"/>
+  
+  <!-- You will only need to change the next two properties. -->
+  <!-- Alter value of package and main as appropriate. -->
+  <property name="package" value="lab15"/>
+  <property name="main" value="DLLApp"/>
+  
+  <property name="jar.name" value="${main}.jar"/>
+  <property name="top.dir" value="/home/cshome/coursework/241"/>
+  <property name="build.dir" value="${basedir}/build"/>
+  <property name="doc.dir" value="${build.dir}/docs"/>
+  <property name="doc.index" value="${doc.dir}/index.html"/>
+  <property name="main.class" value="${package}.${main}"/>
+  <property name="junit.dir" value="${top.dir}/junit"/>
+  <property name="test.dir" value="${top.dir}/tests/${package}"/>
+  <property name="unit.dir" value="${test.dir}/junit"/>
+  <property name="local.api" value="${top.dir}/java/docs/api"/>
+  <property name="junit.api" value="${top.dir}/junit/javadoc"/>
+  <property name="sun.api" value="http://java.sun.com/javase/6/docs/api"/>
+  
+  <!-- targets available for students to use start here -->
+  <target name="clean"
+          description="Delete all generated files">
+    <delete file="${jar.name}"/>
+    <delete dir="${build.dir}"/>
+  </target>
+  
+  <target name="cleanall" depends="clean">
+    <delete>
+      <fileset dir="${basedir}" includes="**/*~" defaultexcludes="no"/>
+    </delete>
+  </target>
+  
+  <target name="docs"
+          description="Generate and display Javadoc documentation">
+    <delete dir="${doc.dir}"/>
+    <javadoc destdir="${doc.dir}" author="true" access="private"
+             windowtitle="Javadoc documentation for package ${package}">
+      <packageset dir="${basedir}"/>
+      <link href="${local.api}"/>
+      <link href="${junit.api}"/>
+    </javadoc>
+    <exec executable="firefox" spawn="true">
+      <arg line="file://${doc.index}"/>
+    </exec>
+  </target>
+  
+  <target name="jar" depends="init,compile"
+          description="Compile all source files and create a runnable jar file">
+    <jar jarfile="${jar.name}">
+      <fileset dir="${build.dir}" includes="**/*.class"
+               excludes="**/*Test.class"/>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Main-Class" value="${main.class}"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="junit" depends="init-mark,compile" if="unit.dir.exists"
+          description="Run individual unit tests with JUnit's gui test runner">
+    <java classname="junit.swingui.TestRunner" fork="true">
+      <classpath>
+        <pathelement
+           location="${junit.dir}/junit.jar"/>
+        <pathelement
+           location="${build.dir}"/>
+      </classpath>
+    </java>
+  </target>
+  
+  <target name="submit"
+          description="Submit your project (use only for assignments)">
+    <tstamp>
+      <format property="TIMESTAMP" pattern="yyMMdd.HHmmss"/>
+    </tstamp>
+    <property name="tarfile"
+              value="${user.name}-${TIMESTAMP}-${package}.tbz2"/>
+    <tar basedir="${basedir}"
+         compression="bzip2"
+         excludes="build/**,${jar.name}"
+         defaultexcludes="no"
+         destfile="${tarfile}"/>
+    <copy file="${tarfile}" todir="${top.dir}/submit"/>
+    <chmod file="${top.dir}/submit/${tarfile}" perm="o+r"/>
+    <echo>
+      The files submitted are:
+    </echo>
+    <exec executable="tar">
+      <arg line="-tjf"/>
+      <arg line="${tarfile}"/>
+    </exec>
+    <echo/>
+    <delete>
+      <fileset file="${tarfile}"/>
+    </delete>
+  </target>
+  
+  <target name="test" depends="jar"
+          description="Run local tests from inputfiles/outputfiles directories">
+    <antcall target="blackbox-tests">
+      <param name="testbase.dir" value="${basedir}"/>
+    </antcall>
+  </target>
+  <!-- targets available for students to use end here -->
+  
+  
+  <!-- set up paths and properties for compiling and testing -->
+  <target name="init">
+    <path id="project.classpath">
+      <pathelement location="${build.dir}"/>
+      <pathelement location="${unit.dir}"/>
+      <pathelement location="${junit.dir}/junit.jar"/>
+    </path>
+    <property name="compile.dirs" value="${basedir}"/>
+    <property name="testbase.dir" value="${basedir}"/>
+  </target>
+  
+  <!-- set up properties for compiling and testing when marking -->
+  <target name="init-mark">
+    <condition property="compile.dirs" value="${basedir}:${unit.dir}"
+               else="${basedir}">
+      <available file="${unit.dir}"/>
+    </condition>
+    <property name="testbase.dir" value="${test.dir}"/>
+  </target>
+  
+  <available file="${unit.dir}" property="unit.dir.exists"/>
+  
+  <!-- compile all java files (only call when ${compile.dirs}) is set -->
+  <target name="compile">
+    <mkdir dir="${build.dir}"/>
+    <depend srcdir="${compile.dirs}" destdir="${build.dir}"
+            closure="yes"/>
+    <javac srcdir="${compile.dirs}" destdir="${build.dir}"
+           debug="yes" nowarn="off" includeantruntime="false">
+      <classpath refid="project.classpath"/>
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+  
+  <!-- run tests from subdirectories of ${testbase.dir} -->
+  <target name="blackbox-tests">
+    <echo message="Using ${testbase.dir}"/>
+    <exec executable="run-tests" failonerror="true">
+      <arg line="${package}"/>
+      <arg line="${jar.name}"/>
+      <arg line="${testbase.dir}/inputfiles"/>
+      <arg line="${testbase.dir}/outputfiles"/>
+    </exec>
+  </target>
+  
+  <!-- run any unit tests from ${unit.dir} -->
+  <target name="unit-tests" depends="compile" if="unit.dir.exists">
+    <echo message="Using directory ${unit.dir}"/>
+    <junit printsummary="no" haltonfailure="true">
+      <classpath refid="project.classpath"/>
+      <formatter type="plain" usefile="false"/>
+      <batchtest>
+        <fileset dir="${unit.dir}" includes="**/*Test.java"/>
+      </batchtest>
+    </junit>
+  </target>
+  
+  <!-- run all tests (for demonstrators use) -->
+  <target name="mark" depends="init-mark,test,blackbox-tests,unit-tests"
+          if="unit.dir.exists"
+          description="For demonstrators use while marking">
+  </target>
+  
+</project>

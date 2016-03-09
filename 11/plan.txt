@@ -1,0 +1,10 @@
+Lab 11 Plan
+-----------------------------
+
+- set h to 1
+- for the sequence 1,4,13,40 etc find the highest value under the length of
+ the array
+- divide h by 3, and set the value at position h to a temporary int
+- if position h is smaller than the one before, swap them
+- take h of the index and repeat for the next position
+- then repeat for different values of h (divide by 3 again)

@@ -1,0 +1,17 @@
+package 1ab06;
+
+public class SecondLargest{
+
+   
+   public static void main(String[] args){
+
+      public static numArray[] = new int[8]{1,2,3,4,5,6,7,8};
+      System.out.println(numArray);
+   }
+}
+      
+
+      
+      
+      
+   

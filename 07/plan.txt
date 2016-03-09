@@ -1,0 +1,14 @@
+Plan Lab 07
+
+normalise
+-------------------------
+have an empty string and if the character is in the alphabet add it to the
+empty string, return it in lowercase
+
+
+isPalindrome
+-------------------------
+if the first and last characters are equal (using charAt()), call isPalindrome
+again with a substring without the first and last characters and repeat until
+the string length is less than 2, then return true. If it doesn't reach less
+than 2 return false

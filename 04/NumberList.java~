@@ -1,0 +1,87 @@
+/* File: NumberList.java - February 2012 */
+package lab04;
+
+/**
+ * A basic data structure which is supposed to represent a list of
+ * numbers but seems to have a few problems.
+ *
+ * @author Iain Hewson
+ */
+public class NumberList {
+
+   /** An array to hold our numbers in. */
+   private double[] nums;
+
+   /** How many numbers are currently in our list. */
+   private int counter = 0;
+
+   /**
+    * Creates a new NumberList instance.
+    *
+    * @param maxsize the maximum number of integers which can be
+    *                added to this NumberList.
+    */
+   public NumberList(int maxsize) {
+      nums = new double[maxsize];
+   }
+
+   /**
+    * Adds the integer number to this NumberList if it contains
+    * less than maxsize numbers.
+    *
+    * @param number an integer to add to this NumberList.
+    */
+   public void add(int number) {
+      nums[counter] = number;
+      counter++;
+
+   }
+
+   /**
+    * Restores this NumberList to an empty state.
+    */
+   public void clear() {
+      for (int i = 0; i < nums.length; i++) {
+         nums[i] = 0;
+      }
+      counter = 0;
+   }
+   
+   /**
+    * Return true if this NumberList is empty, otherwise false.
+    *
+    * @return true if empty, otherwise false.
+    */
+   public boolean isEmpty() {
+      return  counter == 0;
+   }
+
+   /**
+    * Returns the average of the numbers in this NumberList.
+    * Should only be called if the NumberList is not empty.
+    *
+    * @return the average of the numbers in this NumberList.
+    */
+   public double calcAverage() {
+      double sum = 0;
+      for (int i = 0; i < counter; i++) {
+         sum += nums[i];
+      }
+      return sum / (counter);
+   }
+
+   /**
+    * Returns a string representation of this NumberList.
+    *
+    * @return a string representation of this NumberList.
+    */
+   public String toString() {
+      StringBuilder result = new StringBuilder("[");
+      for (int i = 0; i < counter; i++) {
+         result.append(nums[i] + ", ");
+      }
+      result.append(']');
+      return result.toString();
+   }
+
+}

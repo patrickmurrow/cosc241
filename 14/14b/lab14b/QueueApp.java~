@@ -1,0 +1,41 @@
+package lab17;
+
+import java.util.*;
+
+public class QueueApp{
+
+   public static void main(String args[]){
+      Queue<String> queue = new TwoStackQueue<String>();
+      Scanner input = new Scanner(System.in);
+      while (input.hasNext()){
+         handleLine(new Scanner(input.nextLine()), queue);
+      }
+   }
+
+   public static void handleLine (Scanner line, Queue<String> queue){
+      Scanner scan = new Scanner(line);
+      if (scan.hasNext("[argp]")){
+         char command = scan.next().charAt(0);
+         switch (command){
+         case 'a':
+            while (scan.hasNext()){
+               queue.addLast(scan.next());
+            }
+            break;
+         case 'r':
+            if (queue.isEmpty()){
+               System.out.println(queue.removeFirst());
+            }
+            break;
+         case 'g':
+            if (queue.isEmpty()){
+               System.out.println(queue.getFirst());
+            }
+            break;
+         case 'p':
+            System.out.println(queue);
+            break;
+         }
+      }
+   }
+}

@@ -1,0 +1,65 @@
+
+ package asgn1;
+
+import java.util.*;
+
+public class CupEmptierApp{
+
+   public static void main(String[] args){
+      Scanner input = new Scanner(System.in);
+      Cups numArray = new Cups(getNumbers(input));
+      while (input.hasNextLine()) {
+         handleLine(input.nextLine(), numArray);
+      }
+   }
+
+   public static List<Integer> getNumbers(Scanner input) {
+      List<Integer> numbers = new ArrayList<Integer>();
+      while (input.hasNextInt()) {
+         int num = input.nextInt();
+         numbers.add(num);
+      }
+      return numbers;
+   }
+
+    private static int debug = 0;
+   public static void handleLine(String line, Cups array) {
+       Scanner tokens = new Scanner(line);
+       if (tokens.hasNext("[pcefd]")) {
+	   // if next token is p, c, e, f, or d
+	   char command = tokens.next().charAt(0);
+	   switch (command) {
+	   case 'p':
+	       System.out.println(array.toString());
+	       break;
+	   case 'c':
+	       array.clear();
+	       while(tokens.hasNextInt()){
+		   array.add(tokens.nextInt());
+	       }
+	       break;
+	   case 'e':
+	       if (tokens.hasNext()) {
+		   array.empty(tokens.nextInt());
+	       }
+	       break;
+	   case 'f':
+	       if(tokens.hasNextInt()){
+		   int limit = tokens.nextInt();
+		   array.solve(array, limit, debug);
+	       }else{
+                  int limit = array.size(array);
+                  array.solve(array, limit, debug);
+               }
+	       break;
+	   case 'd':
+	       if (debug == 0){
+		   debug = 1;
+	       }else{
+		   debug = 0;
+	       }
+	       break;
+	   }
+       }
+   }
+}
